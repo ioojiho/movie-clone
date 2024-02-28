@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <p><%= posts.title %></p>
+  <p><%= posts.content %></p>
+  <a href="/edit2/<%= posts._id %>"> 수정 </a>
+  <a href="/list2" class="delete"> 삭제 <br>
+  <a href="/list2"> 목록으로 돌아가기 </a>
+
+  <script>
+    document.querySelector('.delete').addEventListener('click', function(){
+        fetch('/delete2?docid=<%=posts._id%>', {
+         method : 'DELETE'})
+      })
+  </script>
+</body>
+</html>

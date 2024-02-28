@@ -17,6 +17,7 @@ new MongoClient(url).connect().then((client)=>{
   console.log('DB connecting success')
   db = client.db('forum')
   db2 = client.db('sample_training')
+  forum = client.db('forum')
 
   app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
@@ -112,4 +113,41 @@ app.post('/edit', async(req, res) => {
 app.delete('/delete', async(req, res) => {
   await db2.collection('companies').deleteOne({ _id : new ObjectId(req.query.docid)})
   res.send('deleted!')
+})
+
+
+//3. board practice2
+
+app.get('/list2', async(req, res)=>{
+  let result = await forum.collection('post').find().toArray()
+  res.render('list2.ejs', { posts : result })
+})
+
+app.get('/detail2/:id', async(req, res)=>{
+  let result = await db.collection('post').findOne({_id : new ObjectId(req.params.id)})
+  res.render('detail2.ejs', {posts: result})
+})
+
+app.get('/edit2/:id', async(req, res)=> {
+  let result = await db.collection('post').findOne({_id : new ObjectId(req.params.id)})
+  res.render('edit2.ejs', {posts: result})
+})
+
+app.post('/edit2', async(req, res) => {
+  await db.collection('post').updateOne({_id : new ObjectId(req.body.id)}, 
+  {$set : {title: req.body.title, content: req.body.content}})
+  res.redirect(`/detail2/${req.body.id}`)
+})
+
+app.get('/write2', async(req, res)=> {
+  res.render('write2.ejs')
+})
+
+app.post('/write2', async(req, res) => {
+  await db.collection('post').insertOne({title:req.body.title, content:req.body.content})
+  res.redirect('/list2')
+})
+
+app.delete('/delete2', async(req, res) => {
+  await db.collection('post').deleteOne({ _id : new ObjectId(req.query.docid)})
 })
