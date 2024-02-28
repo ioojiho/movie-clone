@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>board</title>
+  <link rel="stylesheet" href="main.css">
+</head>
+<body class="grey-bg">
+  <div class="white-bg">
+    <% for(var i = 0; i < posts.length; i++){ %>
+      <div class="list-box">
+        <h4>
+          <a href="/detail/<%= posts[i]._id %>"><%= posts[i].name %></a>
+          <a href="/edit/<%= posts[i]._id %>">(글수정)</a>
+          <span class="delete">(글삭제)</span>
+        </h4>
+      </div>
+    <% }%>
+  </div>
+  <script>
+    document.querySelectorAll('.delete')[0].addEventListener('click', function(){
+        fetch('/delete?docid=<%=posts[0]._id%>', {
+         method : 'DELETE',
+        })
+        alert('click')
+      })
+  </script>
+</body>
+</html>

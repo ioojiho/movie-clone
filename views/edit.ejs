@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+  <form class="form-box" action="/edit" method="POST">
+    <h4>수정하기</h4>
+    <input type="text" name="id" value="<%=posts._id %>" style="display : none"> 
+    name: <%=posts.name %><br>
+    <%=posts.homepage_url %>"><br><br>
+    <input type="text" name="founded_year" value="<%=posts.founded_year %>"><br>
+    <input type="text" name="founded_month" value="<%=posts.founded_month %>"><br>
+    <input type="text" name="founded_day" value="<%=posts.founded_day %>"><br><br>
+    <button type="submit">전송</button>
+  </form> 
+  
+</body>
+</html>
